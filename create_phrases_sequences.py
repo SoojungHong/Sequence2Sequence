@@ -253,7 +253,6 @@ def traverse(t, phrase_list):
         return
 
     elif t.label() == "ADJP":  # Adjective Phrase
-        print('Adverb Phrase : ', t.leaves())
         if t.__len__() == 1:
             child = t[0]
             if child.label() == "JJ" or child.label() == "JJR" or child.label() == "JJS":
@@ -279,14 +278,12 @@ def traverse(t, phrase_list):
 
 
     elif t.label() == "ADVP":  # Adverb Phrase
-        print('ADVP Phrase : ', t.leaves())
         if t.__len__() == 1:
             child = t[0]
             if child.label() == "RB" or child.label() == "RBS":
                 phrase_list.append(utils.list_to_string(child.leaves()))
 
     elif t.label() == "WHNP": #WH-noun phrase
-        print("WHNP")
         if t.__len__() > 1:
             for child in t:
                 if child.label() == "NP" or child.label() == "VP" or child.label() == "PP" or child.label() == "ADJP" or child.label() == "ADVP":
@@ -297,11 +294,11 @@ def traverse(t, phrase_list):
                     for child in t:
                         if child.label() == "JJ" or child.label() == "NN" or child.label() == "NNS" or child.label() == "NNP" or child.label() == "ADJP":
                             Adj_tokens.append(utils.list_to_string(child.leaves()))  # add whole prepositional phrase
-            
+
                     if Adj_tokens.__len__() != 0:
                         phrase_list.append(utils.list_to_string(Adj_tokens))
 
-                    break
+                    #break
             return
 
 
@@ -380,7 +377,7 @@ def normalizeString(s):
 
 # --------------------
 #  test a query
-text = "Which dry cleaner will be open along my way home?"
+text = "Which CTA stations in Lakeview Chicago have bike-sharing stations?" #FIXME : WHNP
 debug(normalizeString(unicodeToAscii(text)))
 
 
